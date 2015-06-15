@@ -153,6 +153,16 @@ final class CameraConfigurationManager {
       parameters.setFocusMode(focusMode);
     }
 
+    if (!safeMode) {
+        if (!Camera.Parameters.EFFECT_NEGATIVE.equals(parameters.getColorEffect())) {
+          String colorMode = findSettableValue(parameters.getSupportedColorEffects(),
+                                             Camera.Parameters.EFFECT_NEGATIVE);
+          if (colorMode != null) {
+            parameters.setColorEffect(colorMode);
+          }
+        }
+    }
+
     parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
     camera.setParameters(parameters);
   }

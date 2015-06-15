@@ -312,7 +312,9 @@ public final class CameraManager {
       return null;
     }
     // Go ahead and assume it's YUV rather than die.
-    return new PlanarYUVLuminanceSource(rotation == Configuration.ORIENTATION_PORTRAIT ? rotatedData : data, width, height, rect.left, rect.top,
+    PlanarYUVLuminanceSource source = new PlanarYUVLuminanceSource(rotation == Configuration.ORIENTATION_PORTRAIT ? rotatedData : data, width, height, rect.left, rect.top,
         rect.width(), rect.height(), false);
+    source.invert();
+    return source;
   }
 }
